@@ -86,9 +86,12 @@ class VayNo(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-# Home Route
-@app.route('/', methods=['GET'])
-def home():
+@app.route('/api/test', methods=['GET'])
+def test_api():
+    return jsonify({'message': 'API hoạt động bình thường', 'status': 'ok'}), 200
+
+@app.route('/api', methods=['GET'])
+def api_info():
     return jsonify({
         'message': 'LTM Final Project API',
         'status': 'running',
@@ -102,10 +105,6 @@ def home():
         }
     }), 200
 
-@app.route('/api/test', methods=['GET'])
-def test_api():
-    return jsonify({'message': 'API hoạt động bình thường', 'status': 'ok'}), 200
-
 # Serve static files
 @app.route('/')
 def serve_index():
@@ -118,7 +117,9 @@ def serve_static(filename):
 # Auth Routes
 @app.route('/api/auth/register', methods=['POST'])
 def register():
+    print('Register route called')
     data = request.get_json()
+    print('Request data:', data)
     
     if not data or not data.get('email') or not data.get('mat_khau') or not data.get('ho_ten'):
         return jsonify({'message': 'Thiếu thông tin'}), 400
