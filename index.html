@@ -402,7 +402,7 @@
       </div>
 
       <!-- Tab Content -->
-      <div id="transactionsTab" class="tab-content">
+      <div id="transactionsTab" class="tab-content active">
         <div class="section">
           <h2>Thêm Giao Dịch</h2>
           <div class="form-row">
@@ -420,7 +420,7 @@
           <div class="form-row">
             <div class="form-group">
               <label>Mô Tả</label>
-              <input type="text" id="transactionDescription1" placeholder="Mô tả giao dịch" />
+              <input type="text" id="transactionDescription" placeholder="Mô tả giao dịch" />
             </div>
             <div class="form-group">
               <label>Ngày</label>
@@ -454,7 +454,7 @@
           <div class="form-row">
             <div class="form-group">
               <label>Tên Danh Mục</label>
-              <input type="text" id="categoryName1" placeholder="Nhập tên danh mục" />
+              <input type="text" id="categoryName" placeholder="Nhập tên danh mục" />
             </div>
             <div class="form-group">
               <label>Loại</label>
@@ -487,389 +487,6 @@
             </tbody>
           </table>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="config.js"></script>
-  <script src="app.js"></script>
-</body>
-
-</html> 5px;
-            ">
-          AI Tư Vấn
-        </button>
-      </div>
-
-      <!-- Transactions Tab -->
-      <div id="transactionsTab" class="tab-content">
-        <div class="section">
-          <h2>Thêm Giao Dịch</h2>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Loại</label>
-              <select id="transactionType">
-                <option value="income">Thu Nhập</option>
-                <option value="expense">Chi Tiêu</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Số Tiền</label>
-              <input type="number" id="transactionAmount" placeholder="Nhập số tiền" />
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Danh Mục</label>
-              <select id="transactionCategory">
-                <option value="food">Ăn Uống</option>
-                <option value="transport">Di Chuyển</option>
-                <option value="shopping">Mua Sắm</option>
-                <option value="entertainment">Giải Trí</option>
-                <option value="salary">Lương</option>
-                <option value="other">Khác</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Mô Tả</label>
-              <input type="text" id="transactionDescription" placeholder="Mô tả giao dịch" />
-            </div>
-          </div>
-          <button onclick="addTransaction()">Thêm Giao Dịch</button>
-        </div>
-
-        <div class="section">
-          <h2>Lịch Sử Giao Dịch</h2>
-          <table id="transactionsTable">
-            <thead>
-              <tr>
-                <th>Ngày</th>
-                <th>Loại</th>
-                <th>Danh Mục</th>
-                <th>Mô Tả</th>
-                <th>Số Tiền</th>
-                <th>Thao Tác</th>
-              </tr>
-            </thead>
-            <tbody id="transactionsBody">
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Categories Tab -->
-      <div id="categoriesTab" class="tab-content" style="display: none">
-        <div class="section">
-          <h2>Quản Lý Danh Mục</h2>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Tên Danh Mục</label>
-              <input type="text" id="categoryName" placeholder="Nhập tên danh mục" />
-            </div>
-            <div class="form-group">
-              <label>Loại</label>
-              <select id="categoryType">
-                <option value="expense">Chi Tiêu</option>
-                <option value="income">Thu Nhập</option>
-              </select>
-            </div>
-          </div>
-          <button onclick="addCategory()">Thêm Danh Mục</button>
-        </div>
-
-        <div class="section">
-          <h2>Danh Sách Danh Mục</h2>
-          <table id="categoriesTable">
-            <thead>
-              <tr>
-                <th>Tên</th>
-                <th>Loại</th>
-                <th>Thao Tác</th>
-              </tr>
-            </thead>
-            <tbody id="categoriesBody">
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  </script>
-</body>
-
-</html> 5px;
-            ">
-          AI
-        </button>
-        <button onclick="switchTab('statistics')">Thống Kê</button>
-        <button onclick="switchTab('debt')">Vay Nợ</button>
-        <button onclick="switchTab('savings')">Tiết Kiệm</button>
-        <button onclick="switchTab('profile')">Hồ Sơ</button>
-      </div>
-
-      <!-- Transactions Tab -->
-      <div id="transactionsTab" class="section">
-        <h2>Quản Lý Giao Dịch</h2>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Danh Mục</label>
-            <select id="transactionCategory" style="
-                  width: 100%;
-                  padding: 12px;
-                  border: 1px solid #ddd;
-                  border-radius: 5px;
-                ">
-              <option value="">Chọn danh mục</option>
-            </select>
-            <div style="margin-top: 8px; font-size: 12px; color: #666">
-              Gợi ý:
-              <span style="color: #667eea; cursor: pointer" onclick="showCategorySuggestions()">Xem danh mục phổ
-                biến</span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Số Tiền</label>
-            <input type="number" id="transactionAmount" placeholder="Nhập số tiền" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Mô Tả</label>
-          <input type="text" id="transactionDescription2" placeholder="Nhập mô tả" />
-        </div>
-        <button onclick="addTransaction()">Thêm Giao Dịch</button>
-
-        <h3 style="margin-top: 30px; margin-bottom: 15px">
-          Lịch Sử Giao Dịch
-        </h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Danh Mục</th>
-              <th>Số Tiền</th>
-              <th>Mô Tả</th>
-              <th>Ngày</th>
-            </tr>
-          </thead>
-          <tbody id="transactionList"></tbody>
-        </table>
-      </div>
-
-      <!-- Categories Tab -->
-      <div id="categoriesTab" class="section" style="display: none">
-        <h2>Quản Lý Danh Mục</h2>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Loại Danh Mục</label>
-            <select id="categoryType" style="
-                  width: 100%;
-                  padding: 12px;
-                  border: 1px solid #ddd;
-                  border-radius: 5px;
-                ">
-              <option value="Chi tiêu">Chi Tiêu</option>
-              <option value="Thu nhập">Thu Nhập</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Tên Danh Mục</label>
-            <input type="text" id="categoryName2" placeholder="Nhập tên danh mục" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Mô Tả</label>
-          <input type="text" id="categoryDescription" placeholder="Nhập mô tả" />
-        </div>
-        <button onclick="addCategory()">Thêm Danh Mục</button>
-
-        <h3 style="margin-top: 30px; margin-bottom: 15px">
-          Danh Sách Danh Mục
-        </h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Tên Danh Mục</th>
-              <th>Loại</th>
-              <th>Mô Tả</th>
-            </tr>
-          </thead>
-          <tbody id="categoryList"></tbody>
-        </table>
-      </div>
-
-      <!-- Statistics Tab -->
-      <div id="statisticsTab" class="section" style="display: none">
-        <h2>Thống Kê Chi Tiêu</h2>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Tháng</label>
-            <input type="number" id="statMonth" min="1" max="12" placeholder="Tháng" />
-          </div>
-          <div class="form-group">
-            <label>Năm</label>
-            <input type="number" id="statYear" placeholder="Năm" />
-          </div>
-        </div>
-        <button onclick="loadDetailedStats()">Xem Thống Kê</button>
-
-        <h3 style="margin-top: 30px; margin-bottom: 15px">
-          Báo Cáo Chi Tiết
-        </h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Danh Mục</th>
-              <th>Loại</th>
-              <th>Tổng Tiền</th>
-            </tr>
-          </thead>
-          <tbody id="statsList"></tbody>
-        </table>
-      </div>
-
-      <!-- Debt Tab -->
-      <div id="debtTab" class="section" style="display: none">
-        <h2>Quản Lý Vay Nợ</h2>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Họ Tên</label>
-            <input type="text" id="debtName" placeholder="Tên người vay/cho vay" />
-          </div>
-          <div class="form-group">
-            <label>Loại</label>
-            <select id="debtType" style="
-                  width: 100%;
-                  padding: 12px;
-                  border: 1px solid #ddd;
-                  border-radius: 5px;
-                ">
-              <option value="Cho Vay">Cho Vay</option>
-              <option value="Mượn Nợ">Mượn Nợ</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Số Tiền</label>
-            <input type="number" id="debtAmount" placeholder="Số tiền" />
-          </div>
-          <div class="form-group">
-            <label>Lãi Suất (%)</label>
-            <input type="number" id="debtRate" placeholder="Lãi suất" value="0" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Hạn Trả</label>
-          <input type="date" id="debtDue" />
-        </div>
-        <button onclick="addDebt()">Thêm Khoản Vay/Nợ</button>
-
-        <h3 style="margin-top: 30px; margin-bottom: 15px">
-          Danh Sách Vay Nợ
-        </h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Họ Tên</th>
-              <th>Loại</th>
-              <th>Số Tiền</th>
-              <th>Trạng Thái</th>
-              <th>Hạn Trả</th>
-            </tr>
-          </thead>
-          <tbody id="debtList"></tbody>
-        </table>
-      </div>
-
-      <!-- Savings Tab -->
-      <div id="savingsTab" class="section" style="display: none">
-        <h2>Kế Hoạch Tiết Kiệm</h2>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Tên Mục Tiêu</label>
-            <input type="text" id="savingName" placeholder="Ví dụ: Mua nhà" />
-          </div>
-          <div class="form-group">
-            <label>Số Tiền Mục Tiêu</label>
-            <input type="number" id="savingTarget" placeholder="Số tiền" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Ngày Kết Thúc</label>
-          <input type="date" id="savingEnd" />
-        </div>
-        <button onclick="addSaving()">Tạo Mục Tiêu</button>
-
-        <h3 style="margin-top: 30px; margin-bottom: 15px">
-          Danh Sách Tiết Kiệm
-        </h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Tên Mục Tiêu</th>
-              <th>Mục Tiêu</th>
-              <th>Trạng Thái</th>
-              <th>Ngày KT</th>
-            </tr>
-          </thead>
-          <tbody id="savingsList"></tbody>
-        </table>
-      </div>
-
-      <!-- Profile Tab -->
-      <div id="profileTab" class="section" style="display: none">
-        <h2>Hồ Sơ Cá Nhân</h2>
-        <div class="form-group">
-          <label>Họ Tên</label>
-          <input type="text" id="profileName" placeholder="Nhập họ tên" />
-        </div>
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" id="profileEmail" placeholder="Nhập email" disabled />
-        </div>
-        <div class="form-group">
-          <label>Mật Khẩu Mới</label>
-          <input type="password" id="profilePassword" placeholder="Nhập mật khẩu mới" />
-        </div>
-        <button onclick="updateProfile()">Cập Nhật Hồ Sơ</button>
       </div>
     </div>
   </div>
@@ -972,26 +589,9 @@
     }
 
     async function loadData() {
-      await loadProfile();
       await loadStatistics();
       await loadCategories();
       await loadTransactions();
-    }
-
-    async function loadProfile() {
-      try {
-        const response = await fetch(`${API_URL}/user/profile`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          document.getElementById("profileName").value = data.ho_ten;
-          document.getElementById("profileEmail").value = data.email;
-        }
-      } catch (error) {
-        console.error("Lỗi tải hồ sơ:", error);
-      }
     }
 
     async function loadStatistics() {
@@ -1023,7 +623,7 @@
         if (response.ok) {
           const categories = await response.json();
           const select = document.getElementById("transactionCategory");
-          const tbody = document.getElementById("categoryList");
+          const tbody = document.getElementById("categoryTableBody");
 
           select.innerHTML = '<option value="">Chọn danh mục</option>';
 
@@ -1035,78 +635,22 @@
             return;
           }
 
-          // Nhóm theo loại
-          const chiTieu = categories.filter(
-            (c) => c.loai_danh_muc === "Chi tiêu"
-          );
-          const thuNhap = categories.filter(
-            (c) => c.loai_danh_muc === "Thu nhập"
-          );
-
-          if (chiTieu.length > 0) {
-            select.innerHTML += '<optgroup label="💸 Chi Tiêu">';
-            chiTieu.forEach((cat) => {
-              select.innerHTML += `<option value="${cat.id}">${cat.icon || "📌"
-                } ${cat.ten_danh_muc}</option>`;
-            });
-            select.innerHTML += "</optgroup>";
-          }
-
-          if (thuNhap.length > 0) {
-            select.innerHTML += '<optgroup label="💰 Thu Nhập">';
-            thuNhap.forEach((cat) => {
-              select.innerHTML += `<option value="${cat.id}">${cat.icon || "💵"
-                } ${cat.ten_danh_muc}</option>`;
-            });
-            select.innerHTML += "</optgroup>";
-          }
+          categories.forEach((cat) => {
+            select.innerHTML += `<option value="${cat.id}">${cat.icon || "📌"} ${cat.ten_danh_muc}</option>`;
+          });
 
           tbody.innerHTML = "";
           categories.forEach((cat) => {
             tbody.innerHTML += `<tr>
+                            <td>${cat.icon || "📌"}</td>
                             <td>${cat.ten_danh_muc}</td>
                             <td>${cat.loai_danh_muc}</td>
-                            <td>-</td>
                         </tr>`;
           });
         }
       } catch (error) {
         console.error("Lỗi tải danh mục:", error);
       }
-    }
-
-    function showCategorySuggestions() {
-      const suggestions = {
-        "Chi tiêu": [
-          { name: "Ăn uống", icon: "🍔" },
-          { name: "Giải trí", icon: "🎮" },
-          { name: "Mua sắm", icon: "🛒" },
-          { name: "Di chuyển", icon: "🚗" },
-          { name: "Học phí", icon: "📚" },
-          { name: "Y tế", icon: "💊" },
-          { name: "Nhà cửa", icon: "🏠" },
-          { name: "Điện nước", icon: "💡" },
-        ],
-        "Thu nhập": [
-          { name: "Lương", icon: "💰" },
-          { name: "Thưởng", icon: "🎁" },
-          { name: "Đầu tư", icon: "📈" },
-          { name: "Kinh doanh", icon: "💼" },
-        ],
-      };
-
-      let message = "📋 DANH MỤC PHỔ BIẾN:\n\n";
-      message += "💸 CHI TIÊU:\n";
-      suggestions["Chi tiêu"].forEach(
-        (s) => (message += `  ${s.icon} ${s.name}\n`)
-      );
-      message += "\n💰 THU NHẬP:\n";
-      suggestions["Thu nhập"].forEach(
-        (s) => (message += `  ${s.icon} ${s.name}\n`)
-      );
-      message += '\n💡 Vào tab "Danh Mục" để tạo danh mục mới!';
-
-      alert(message);
     }
 
     async function loadTransactions() {
@@ -1117,17 +661,15 @@
 
         if (response.ok) {
           const transactions = await response.json();
-          const tbody = document.getElementById("transactionList");
+          const tbody = document.getElementById("transactionTableBody");
           tbody.innerHTML = "";
 
           transactions.forEach((trans) => {
             tbody.innerHTML += `<tr>
+                            <td>${new Date(trans.ngay).toLocaleDateString("vi-VN")}</td>
                             <td>-</td>
                             <td>${formatCurrency(trans.so_tien)}</td>
                             <td>${trans.mo_ta}</td>
-                            <td>${new Date(trans.ngay).toLocaleDateString(
-              "vi-VN"
-            )}</td>
                         </tr>`;
           });
         }
@@ -1141,9 +683,7 @@
       const amount = parseFloat(
         document.getElementById("transactionAmount").value
       );
-      const description = document.getElementById(
-        "transactionDescription2"
-      ).value;
+      const description = document.getElementById("transactionDescription").value;
 
       if (!categoryId || !amount) {
         showAlert(
@@ -1171,7 +711,7 @@
         if (response.ok) {
           showAlert("dashboardAlert", "Thêm giao dịch thành công", "success");
           document.getElementById("transactionAmount").value = "";
-          document.getElementById("transactionDescription2").value = "";
+          document.getElementById("transactionDescription").value = "";
           loadData();
         } else {
           const data = await response.json();
@@ -1184,13 +724,11 @@
 
     async function addCategory() {
       const type = document.getElementById("categoryType").value;
-      const name = document.getElementById("categoryName2").value;
-      const description = document.getElementById(
-        "categoryDescription"
-      ).value;
+      const name = document.getElementById("categoryName").value;
+      const icon = document.getElementById("categoryIcon").value;
 
-      if (!name) {
-        showAlert("dashboardAlert", "Vui lòng nhập tên danh mục", "error");
+      if (!name || !type) {
+        showAlert("dashboardAlert", "Vui lòng nhập tên và loại danh mục", "error");
         return;
       }
 
@@ -1204,14 +742,14 @@
           body: JSON.stringify({
             loai_danh_muc: type,
             ten_danh_muc: name,
-            mo_ta: description,
+            icon: icon,
           }),
         });
 
         if (response.ok) {
           showAlert("dashboardAlert", "Thêm danh mục thành công", "success");
-          document.getElementById("categoryName2").value = "";
-          document.getElementById("categoryDescription").value = "";
+          document.getElementById("categoryName").value = "";
+          document.getElementById("categoryIcon").value = "";
           loadCategories();
         } else {
           const data = await response.json();
@@ -1222,242 +760,15 @@
       }
     }
 
-    async function updateProfile() {
-      const name = document.getElementById("profileName").value;
-      const password = document.getElementById("profilePassword").value;
-
-      if (!name) {
-        showAlert("dashboardAlert", "Vui lòng nhập họ tên", "error");
-        return;
-      }
-
-      try {
-        const body = { ho_ten: name };
-        if (password) body.mat_khau = password;
-
-        const response = await fetch(`${API_URL}/user/profile`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(body),
-        });
-
-        if (response.ok) {
-          showAlert("dashboardAlert", "Cập nhật hồ sơ thành công", "success");
-          document.getElementById("profilePassword").value = "";
-        } else {
-          const data = await response.json();
-          showAlert("dashboardAlert", data.message, "error");
-        }
-      } catch (error) {
-        showAlert("dashboardAlert", "Lỗi kết nối", "error");
-      }
-    }
-
-    async function loadDetailedStats() {
-      const month =
-        document.getElementById("statMonth").value ||
-        new Date().getMonth() + 1;
-      const year =
-        document.getElementById("statYear").value || new Date().getFullYear();
-
-      try {
-        const response = await fetch(
-          `${API_URL}/thong-ke-chi-tiet?thang=${month}&nam=${year}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-
-        if (response.ok) {
-          const stats = await response.json();
-          const tbody = document.getElementById("statsList");
-          tbody.innerHTML = "";
-
-          stats.forEach((stat) => {
-            tbody.innerHTML += `<tr>
-                            <td>${stat.ten_danh_muc}</td>
-                            <td>${stat.loai}</td>
-                            <td>${formatCurrency(stat.tong)}</td>
-                        </tr>`;
-          });
-        }
-      } catch (error) {
-        console.error("Lỗi tải thống kê:", error);
-      }
-    }
-
-    async function addDebt() {
-      const name = document.getElementById("debtName").value;
-      const type = document.getElementById("debtType").value;
-      const amount = parseFloat(document.getElementById("debtAmount").value);
-      const rate = parseFloat(document.getElementById("debtRate").value) || 0;
-      const due = document.getElementById("debtDue").value;
-
-      if (!name || !amount || !due) {
-        showAlert(
-          "dashboardAlert",
-          "Vui lòng điền đầy đủ thông tin",
-          "error"
-        );
-        return;
-      }
-
-      try {
-        const response = await fetch(`${API_URL}/vay-no`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            ho_ten_vay_no: name,
-            loai: type,
-            so_tien: amount,
-            lai_suat: rate,
-            han_tra: due,
-          }),
-        });
-
-        if (response.ok) {
-          showAlert("dashboardAlert", "Thêm thành công", "success");
-          document.getElementById("debtName").value = "";
-          document.getElementById("debtAmount").value = "";
-          document.getElementById("debtRate").value = "0";
-          document.getElementById("debtDue").value = "";
-          loadDebts();
-        }
-      } catch (error) {
-        showAlert("dashboardAlert", "Lỗi kết nối", "error");
-      }
-    }
-
-    async function loadDebts() {
-      try {
-        const response = await fetch(`${API_URL}/vay-no`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        if (response.ok) {
-          const debts = await response.json();
-          const tbody = document.getElementById("debtList");
-          tbody.innerHTML = "";
-
-          debts.forEach((debt) => {
-            tbody.innerHTML += `<tr>
-                            <td>${debt.ho_ten_vay_no}</td>
-                            <td>${debt.loai}</td>
-                            <td>${formatCurrency(debt.so_tien)}</td>
-                            <td>${debt.trang_thai}</td>
-                            <td>${new Date(debt.han_tra).toLocaleDateString(
-              "vi-VN"
-            )}</td>
-                        </tr>`;
-          });
-        }
-      } catch (error) {
-        console.error("Lỗi tải vay nợ:", error);
-      }
-    }
-
-    async function addSaving() {
-      const name = document.getElementById("savingName").value;
-      const target = parseFloat(
-        document.getElementById("savingTarget").value
-      );
-      const end = document.getElementById("savingEnd").value;
-
-      if (!name || !target || !end) {
-        showAlert(
-          "dashboardAlert",
-          "Vui lòng điền đầy đủ thông tin",
-          "error"
-        );
-        return;
-      }
-
-      try {
-        const response = await fetch(`${API_URL}/tich-luy`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            ten_tich_luy: name,
-            so_tien_muc_tieu: target,
-            ngay_ket_thuc: end,
-          }),
-        });
-
-        if (response.ok) {
-          showAlert("dashboardAlert", "Tạo mục tiêu thành công", "success");
-          document.getElementById("savingName").value = "";
-          document.getElementById("savingTarget").value = "";
-          document.getElementById("savingEnd").value = "";
-          loadSavings();
-        }
-      } catch (error) {
-        showAlert("dashboardAlert", "Lỗi kết nối", "error");
-      }
-    }
-
-    async function loadSavings() {
-      try {
-        const response = await fetch(`${API_URL}/tich-luy`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        if (response.ok) {
-          const savings = await response.json();
-          const tbody = document.getElementById("savingsList");
-          tbody.innerHTML = "";
-
-          savings.forEach((saving) => {
-            tbody.innerHTML += `<tr>
-                            <td>${saving.ten_tich_luy}</td>
-                            <td>${formatCurrency(saving.so_tien_muc_tieu)}</td>
-                            <td>${saving.trang_thai}</td>
-                            <td>${saving.ngay_ket_thuc
-                ? new Date(
-                  saving.ngay_ket_thuc
-                ).toLocaleDateString("vi-VN")
-                : "-"
-              }</td>
-                        </tr>`;
-          });
-        }
-      } catch (error) {
-        console.error("Lỗi tải tiết kiệm:", error);
-      }
-    }
-
     function switchTab(tab) {
       document
-        .querySelectorAll(".section")
+        .querySelectorAll(".tab-content")
         .forEach((el) => (el.style.display = "none"));
       document
         .querySelectorAll(".nav-tabs button")
         .forEach((el) => el.classList.remove("active"));
 
-      const tabs = {
-        transactions: "transactionsTab",
-        categories: "categoriesTab",
-        statistics: "statisticsTab",
-        debt: "debtTab",
-        savings: "savingsTab",
-        profile: "profileTab",
-      };
-
-      if (tabs[tab]) {
-        document.getElementById(tabs[tab]).style.display = "block";
-        if (tab === "statistics") loadDetailedStats();
-        if (tab === "debt") loadDebts();
-        if (tab === "savings") loadSavings();
-      }
-
+      document.getElementById(tab + "Tab").style.display = "block";
       event.target.classList.add("active");
     }
 
