@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: quan-ly-chi-tieu
+    env: static
+    buildCommand: echo "No build needed"
+    staticPublishPath: .
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
