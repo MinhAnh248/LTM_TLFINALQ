@@ -570,16 +570,25 @@
         console.log('Response status:', response.status);
         console.log('Response headers:', response.headers);
 
+        const responseText = await response.text();
+        console.log('Raw response:', responseText);
+        
         if (!response.ok) {
           console.log('Response not ok:', response.statusText);
-          const errorText = await response.text();
-          console.log('Error response:', errorText);
           showAlert("registerAlert", `Lỗi ${response.status}: ${response.statusText}`, "error");
           return;
         }
 
-        const data = await response.json();
-        console.log('Success response:', data);
+        let data;
+        try {
+          data = JSON.parse(responseText);
+          console.log('Parsed response:', data);
+        } catch (e) {
+          console.error('JSON parse error:', e);
+          console.log('Response was not JSON:', responseText);
+          showAlert("registerAlert", "Server trả về dữ liệu không hợp lệ", "error");
+          return;
+        }
 
         showAlert(
           "registerAlert",
