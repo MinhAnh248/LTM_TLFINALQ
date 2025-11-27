@@ -516,6 +516,8 @@
       const email = document.getElementById("loginEmail").value;
       const password = document.getElementById("loginPassword").value;
 
+      console.log('Login API URL:', `${API_URL}/auth/login`);
+
       try {
         const response = await fetch(`${API_URL}/auth/login`, {
           method: "POST",
@@ -544,6 +546,9 @@
       const password = document.getElementById("registerPassword").value;
       const balance =
         parseFloat(document.getElementById("registerBalance").value) || 0;
+
+      console.log('API URL:', API_URL);
+      console.log('Full URL:', `${API_URL}/auth/register`);
 
       try {
         const response = await fetch(`${API_URL}/auth/register`, {
