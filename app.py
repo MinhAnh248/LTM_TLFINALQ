@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_cors import CORS
@@ -105,6 +105,15 @@ def home():
 @app.route('/api/test', methods=['GET'])
 def test_api():
     return jsonify({'message': 'API hoạt động bình thường', 'status': 'ok'}), 200
+
+# Serve static files
+@app.route('/')
+def serve_index():
+    return send_from_directory('.', 'index.html')
+
+@app.route('/<path:filename>')
+def serve_static(filename):
+    return send_from_directory('.', filename)
 
 # Auth Routes
 @app.route('/api/auth/register', methods=['POST'])

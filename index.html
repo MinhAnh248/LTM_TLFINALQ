@@ -586,6 +586,8 @@
         } catch (e) {
           console.error('JSON parse error:', e);
           console.log('Response was not JSON:', responseText);
+          console.log('Response length:', responseText.length);
+          console.log('First 500 chars:', responseText.substring(0, 500));
           showAlert("registerAlert", "Server trả về dữ liệu không hợp lệ", "error");
           return;
         }
