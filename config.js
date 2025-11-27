@@ -1,5 +1,5 @@
 // Cấu hình ứng dụng
-const CONFIG = {
+window.CONFIG = {
     // QUAN TRỌNG: Thay đổi URL này thành URL Render thực tế của bạn
     // Ví dụ: 'https://expense-tracker-backend.onrender.com'
     API_URL: 'https://your-render-app-url.onrender.com',
@@ -39,5 +39,5 @@ const CONFIG = {
 
 // Export cho sử dụng trong các file khác
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = CONFIG;
+    module.exports = window.CONFIG;
 }
