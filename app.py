@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=['https://ltm-tlfinalq.onrender.com', 'http://localhost:3000', 'http://127.0.0.1:5500'])
 # Cấu hình database cho production
 database_url = os.getenv('DATABASE_URL', 'sqlite:///expense.db')
 if database_url.startswith('postgres://'):
