@@ -6,13 +6,18 @@ from datetime import datetime, timedelta
 import bcrypt
 import os
 from dotenv import load_dotenv
-from ai_module import full_financial_analysis
+# AI module sẽ được import trong function để tránh lỗi startup
 
 load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///expense.db')
+# Cấu hình database cho production
+database_url = os.getenv('DATABASE_URL', 'sqlite:///expense.db')
+if database_url.startswith('postgres://'):
+    database_url = database_url.replace('postgres://', 'postgresql://', 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', 'your-secret-key')
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=30)
 
@@ -165,7 +170,10 @@ def login():
 @app.route('/api/giao-dich', methods=['POST'])
 @jwt_required()
 def create_transaction():
-    from ai_module import full_financial_analysis  # import AI module ở đây
+    try:
+        from ai_module import full_financial_analysis
+    except ImportError:
+        full_financial_analysis = lambda x: {'status': 'ai_unavailable'}
 
     user_id = int(get_jwt_identity())
     data = request.get_json()
@@ -331,6 +339,11 @@ def get_statistics():
 @app.route('/api/ai/prediction', methods=['GET'])
 @jwt_required()
 def ai_prediction():
+    try:
+        from ai_module import full_financial_analysis
+    except ImportError:
+        return jsonify({'error': 'AI module not available'}), 500
+        
     user_id = int(get_jwt_identity())
 
     # 1. Lấy danh mục và giao dịch
@@ -389,8 +402,10 @@ def ai_prediction():
 
 
 
+# Khởi tạo database
+with app.app_context():
+    db.create_all()
+
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     port = int(os.getenv('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=False)

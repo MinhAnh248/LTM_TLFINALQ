@@ -1,0 +1,13 @@
+{
+  "name": "quan-ly-chi-tieu",
+  "version": "1.0.0",
+  "description": "Ứng dụng quản lý chi tiêu cá nhân",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve -s . -l 3000",
+    "build": "echo 'No build needed for static site'"
+  },
+  "dependencies": {
+    "serve": "^14.0.0"
+  }
+}
