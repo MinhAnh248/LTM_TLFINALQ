@@ -241,6 +241,29 @@
       border-bottom-color: #667eea;
     }
 
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+      background: white;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: #2196f3;
+      box-shadow: 0 0 5px rgba(33, 150, 243, 0.3);
+    }
+
     @media (max-width: 768px) {
       .container {
         padding: 10px;
@@ -270,6 +293,10 @@
       table th,
       table td {
         padding: 8px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -369,6 +396,106 @@
               background: linear-gradient(135deg, #f5f6f5 0%, #f8f9f8 100%);
               color: #666;
               border-radius: 5px;
+            ">
+          AI Tư Vấn
+        </button>
+      </div>
+
+      <!-- Tab Content -->
+      <div id="transactionsTab" class="tab-content">
+        <div class="section">
+          <h2>Thêm Giao Dịch</h2>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Số Tiền</label>
+              <input type="number" id="transactionAmount" placeholder="Nhập số tiền" />
+            </div>
+            <div class="form-group">
+              <label>Danh Mục</label>
+              <select id="transactionCategory">
+                <option value="">Chọn danh mục</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Mô Tả</label>
+              <input type="text" id="transactionDescription1" placeholder="Mô tả giao dịch" />
+            </div>
+            <div class="form-group">
+              <label>Ngày</label>
+              <input type="date" id="transactionDate" />
+            </div>
+          </div>
+          <button onclick="addTransaction()">Thêm Giao Dịch</button>
+        </div>
+
+        <div class="section">
+          <h2>Lịch Sử Giao Dịch</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Ngày</th>
+                <th>Danh Mục</th>
+                <th>Số Tiền</th>
+                <th>Mô Tả</th>
+              </tr>
+            </thead>
+            <tbody id="transactionTableBody">
+              <!-- Transactions will be loaded here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="categoriesTab" class="tab-content" style="display: none;">
+        <div class="section">
+          <h2>Thêm Danh Mục</h2>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Tên Danh Mục</label>
+              <input type="text" id="categoryName1" placeholder="Nhập tên danh mục" />
+            </div>
+            <div class="form-group">
+              <label>Loại</label>
+              <select id="categoryType">
+                <option value="">Chọn loại</option>
+                <option value="Thu nhập">Thu nhập</option>
+                <option value="Chi tiêu">Chi tiêu</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Icon (tùy chọn)</label>
+            <input type="text" id="categoryIcon" placeholder="Ví dụ: 🍔, 💰, 🎮" />
+          </div>
+          <button onclick="addCategory()">Thêm Danh Mục</button>
+        </div>
+
+        <div class="section">
+          <h2>Danh Sách Danh Mục</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Icon</th>
+                <th>Tên</th>
+                <th>Loại</th>
+              </tr>
+            </thead>
+            <tbody id="categoryTableBody">
+              <!-- Categories will be loaded here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html> 5px;
             ">
           AI Tư Vấn
         </button>
@@ -816,7 +943,7 @@
         </div>
         <div class="form-group">
           <label>Mô Tả</label>
-          <input type="text" id="transactionDescription" placeholder="Nhập mô tả" />
+          <input type="text" id="transactionDescription2" placeholder="Nhập mô tả" />
         </div>
         <button onclick="addTransaction()">Thêm Giao Dịch</button>
 
@@ -854,7 +981,7 @@
           </div>
           <div class="form-group">
             <label>Tên Danh Mục</label>
-            <input type="text" id="categoryName" placeholder="Nhập tên danh mục" />
+            <input type="text" id="categoryName2" placeholder="Nhập tên danh mục" />
           </div>
         </div>
         <div class="form-group">
@@ -1285,7 +1412,7 @@
         document.getElementById("transactionAmount").value
       );
       const description = document.getElementById(
-        "transactionDescription"
+        "transactionDescription2"
       ).value;
 
       if (!categoryId || !amount) {
@@ -1314,7 +1441,7 @@
         if (response.ok) {
           showAlert("dashboardAlert", "Thêm giao dịch thành công", "success");
           document.getElementById("transactionAmount").value = "";
-          document.getElementById("transactionDescription").value = "";
+          document.getElementById("transactionDescription2").value = "";
           loadData();
         } else {
           const data = await response.json();
@@ -1327,7 +1454,7 @@
 
     async function addCategory() {
       const type = document.getElementById("categoryType").value;
-      const name = document.getElementById("categoryName").value;
+      const name = document.getElementById("categoryName2").value;
       const description = document.getElementById(
         "categoryDescription"
       ).value;
@@ -1353,7 +1480,7 @@
 
         if (response.ok) {
           showAlert("dashboardAlert", "Thêm danh mục thành công", "success");
-          document.getElementById("categoryName").value = "";
+          document.getElementById("categoryName2").value = "";
           document.getElementById("categoryDescription").value = "";
           loadCategories();
         } else {
