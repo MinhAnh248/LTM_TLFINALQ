@@ -90,6 +90,11 @@ class VayNo(db.Model):
 def test_api():
     return jsonify({'message': 'API hoạt động bình thường', 'status': 'ok'}), 200
 
+@app.route('/api/test-post', methods=['POST'])
+def test_post():
+    data = request.get_json()
+    return jsonify({'message': 'POST hoạt động', 'received_data': data}), 200
+
 @app.route('/api', methods=['GET'])
 def api_info():
     return jsonify({
@@ -117,12 +122,13 @@ def serve_static(filename):
 # Auth Routes
 @app.route('/api/auth/register', methods=['POST'])
 def register():
-    print('Register route called')
-    data = request.get_json()
-    print('Request data:', data)
-    
-    if not data or not data.get('email') or not data.get('mat_khau') or not data.get('ho_ten'):
-        return jsonify({'message': 'Thiếu thông tin'}), 400
+    try:
+        print('Register route called')
+        data = request.get_json()
+        print('Request data:', data)
+        
+        if not data or not data.get('email') or not data.get('mat_khau') or not data.get('ho_ten'):
+            return jsonify({'message': 'Thiếu thông tin'}), 400
     
     if NguoiDung.query.filter_by(email=data['email']).first():
         return jsonify({'message': 'Email đã tồn tại'}), 400
@@ -158,9 +164,13 @@ def register():
         )
         db.session.add(danh_muc)
     
-    db.session.commit()
-    
-    return jsonify({'message': 'Đăng ký thành công', 'user_id': user.id}), 201
+        db.session.commit()
+        
+        return jsonify({'message': 'Đăng ký thành công', 'user_id': user.id}), 201
+    except Exception as e:
+        print('Error in register:', str(e))
+        db.session.rollback()
+        return jsonify({'message': f'Lỗi server: {str(e)}'}), 500
 
 @app.route('/api/auth/login', methods=['POST'])
 def login():
