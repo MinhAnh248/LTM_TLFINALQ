@@ -102,6 +102,10 @@ def home():
         }
     }), 200
 
+@app.route('/api/test', methods=['GET'])
+def test_api():
+    return jsonify({'message': 'API hoạt động bình thường', 'status': 'ok'}), 200
+
 # Auth Routes
 @app.route('/api/auth/register', methods=['POST'])
 def register():
