@@ -596,313 +596,43 @@
   </div>
 
   <script>
-    // Data storage
-    let users = JSON.parse(localStorage.getItem('users')) || [];
-    let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
-    let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-    let categories = JSON.parse(localStorage.getItem('categories')) || [
-      { id: 1, name: 'Ăn Uống', type: 'expense' },
-      { id: 2, name: 'Di Chuyển', type: 'expense' },
-      { id: 3, name: 'Mua Sắm', type: 'expense' },
-      { id: 4, name: 'Giải Trí', type: 'expense' },
-      { id: 5, name: 'Lương', type: 'income' },
-      { id: 6, name: 'Khác', type: 'expense' }
-    ];
 
-    // Initialize app
-    document.addEventListener('DOMContentLoaded', function() {
-      if (currentUser) {
-        showDashboard();
-      }
-      updateCategoryOptions();
-    });
 
-    // Auth functions
-    function toggleForm() {
-      const loginForm = document.getElementById('loginForm');
-      const registerForm = document.getElementById('registerForm');
-      
-      if (loginForm.style.display === 'none') {
-        loginForm.style.display = 'block';
-        registerForm.style.display = 'none';
-      } else {
-        loginForm.style.display = 'none';
-        registerForm.style.display = 'block';
-      }
-    }
 
-    function register() {
-      const name = document.getElementById('registerName').value;
-      const email = document.getElementById('registerEmail').value;
-      const password = document.getElementById('registerPassword').value;
-      const balance = parseFloat(document.getElementById('registerBalance').value) || 0;
-      
-      if (!name || !email || !password) {
-        showAlert('registerAlert', 'Vui lòng điền đầy đủ thông tin', 'error');
-        return;
-      }
-      
-      if (users.find(u => u.email === email)) {
-        showAlert('registerAlert', 'Email đã tồn tại', 'error');
-        return;
-      }
-      
-      const user = {
-        id: Date.now(),
-        name,
-        email,
-        password,
-        balance,
-        createdAt: new Date().toISOString()
-      };
-      
-      users.push(user);
-      localStorage.setItem('users', JSON.stringify(users));
-      
-      showAlert('registerAlert', 'Đăng ký thành công!', 'success');
-      setTimeout(() => toggleForm(), 1500);
-    }
 
-    function login() {
-      const email = document.getElementById('loginEmail').value;
-      const password = document.getElementById('loginPassword').value;
-      
-      if (!email || !password) {
-        showAlert('loginAlert', 'Vui lòng nhập email và mật khẩu', 'error');
-        return;
-      }
-      
-      const user = users.find(u => u.email === email && u.password === password);
-      
-      if (!user) {
-        showAlert('loginAlert', 'Email hoặc mật khẩu không đúng', 'error');
-        return;
-      }
-      
-      currentUser = user;
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      showDashboard();
-    }
 
-    function logout() {
-      currentUser = null;
-      localStorage.removeItem('currentUser');
-      document.getElementById('authContainer').style.display = 'block';
-      document.getElementById('dashboard').classList.remove('active');
-    }
 
-    function showDashboard() {
-      document.getElementById('authContainer').style.display = 'none';
-      document.getElementById('dashboard').classList.add('active');
-      updateStats();
-      loadTransactions();
-      loadCategories();
-    }
 
-    // Transaction functions
-    function addTransaction() {
-      const type = document.getElementById('transactionType').value;
-      const amount = parseFloat(document.getElementById('transactionAmount').value);
-      const category = document.getElementById('transactionCategory').value;
-      const description = document.getElementById('transactionDescription').value;
-      
-      if (!amount || amount <= 0) {
-        showAlert('dashboardAlert', 'Vui lòng nhập số tiền hợp lệ', 'error');
-        return;
-      }
-      
-      const transaction = {
-        id: Date.now(),
-        userId: currentUser.id,
-        type,
-        amount,
-        category,
-        description,
-        date: new Date().toISOString()
-      };
-      
-      transactions.push(transaction);
-      localStorage.setItem('transactions', JSON.stringify(transactions));
-      
-      // Update user balance
-      if (type === 'income') {
-        currentUser.balance += amount;
-      } else {
-        currentUser.balance -= amount;
-      }
-      
-      // Update user in users array
-      const userIndex = users.findIndex(u => u.id === currentUser.id);
-      users[userIndex] = currentUser;
-      localStorage.setItem('users', JSON.stringify(users));
-      localStorage.setItem('currentUser', JSON.stringify(currentUser));
-      
-      // Clear form
-      document.getElementById('transactionAmount').value = '';
-      document.getElementById('transactionDescription').value = '';
-      
-      updateStats();
-      loadTransactions();
-      showAlert('dashboardAlert', 'Thêm giao dịch thành công!', 'success');
-    }
 
-    function deleteTransaction(id) {
-      const transaction = transactions.find(t => t.id === id);
-      if (!transaction) return;
-      
-      // Revert balance
-      if (transaction.type === 'income') {
-        currentUser.balance -= transaction.amount;
-      } else {
-        currentUser.balance += transaction.amount;
-      }
-      
-      transactions = transactions.filter(t => t.id !== id);
-      localStorage.setItem('transactions', JSON.stringify(transactions));
-      
-      // Update user
-      const userIndex = users.findIndex(u => u.id === currentUser.id);
-      users[userIndex] = currentUser;
-      localStorage.setItem('users', JSON.stringify(users));
-      localStorage.setItem('currentUser', JSON.stringify(currentUser));
-      
-      updateStats();
-      loadTransactions();
-    }
 
-    function loadTransactions() {
-      const userTransactions = transactions.filter(t => t.userId === currentUser.id);
-      const tbody = document.getElementById('transactionsBody');
-      
-      tbody.innerHTML = userTransactions.map(t => `
-        <tr>
-          <td>${new Date(t.date).toLocaleDateString('vi-VN')}</td>
-          <td>${t.type === 'income' ? 'Thu Nhập' : 'Chi Tiêu'}</td>
-          <td>${getCategoryName(t.category)}</td>
-          <td>${t.description}</td>
-          <td>${formatCurrency(t.amount)}</td>
-          <td><button onclick="deleteTransaction(${t.id})" style="background: #e74c3c; padding: 5px 10px; width: auto;">Xóa</button></td>
-        </tr>
-      `).join('');
-    }
 
-    // Category functions
-    function addCategory() {
-      const name = document.getElementById('categoryName').value;
-      const type = document.getElementById('categoryType').value;
-      
-      if (!name) {
-        showAlert('dashboardAlert', 'Vui lòng nhập tên danh mục', 'error');
-        return;
-      }
-      
-      const category = {
-        id: Date.now(),
-        name,
-        type
-      };
-      
-      categories.push(category);
-      localStorage.setItem('categories', JSON.stringify(categories));
-      
-      document.getElementById('categoryName').value = '';
-      
-      loadCategories();
-      updateCategoryOptions();
-      showAlert('dashboardAlert', 'Thêm danh mục thành công!', 'success');
-    }
 
-    function deleteCategory(id) {
-      categories = categories.filter(c => c.id !== id);
-      localStorage.setItem('categories', JSON.stringify(categories));
-      loadCategories();
-      updateCategoryOptions();
-    }
 
-    function loadCategories() {
-      const tbody = document.getElementById('categoriesBody');
-      
-      tbody.innerHTML = categories.map(c => `
-        <tr>
-          <td>${c.name}</td>
-          <td>${c.type === 'income' ? 'Thu Nhập' : 'Chi Tiêu'}</td>
-          <td><button onclick="deleteCategory(${c.id})" style="background: #e74c3c; padding: 5px 10px; width: auto;">Xóa</button></td>
-        </tr>
-      `).join('');
-    }
 
-    function updateCategoryOptions() {
-      const select = document.getElementById('transactionCategory');
-      select.innerHTML = categories.map(c => 
-        `<option value="${c.name}">${c.name}</option>`
-      ).join('');
-    }
 
-    function getCategoryName(categoryValue) {
-      return categoryValue;
-    }
 
-    // Tab functions
-    function switchTab(tabName) {
-      // Hide all tabs
-      document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.style.display = 'none';
-      });
-      
-      // Remove active class from all buttons
-      document.querySelectorAll('.nav-tabs button').forEach(btn => {
-        btn.classList.remove('active');
-      });
-      
-      // Show selected tab
-      document.getElementById(tabName + 'Tab').style.display = 'block';
-      
-      // Add active class to clicked button
-      event.target.classList.add('active');
-    }
 
-    // Utility functions
-    function updateStats() {
-      const userTransactions = transactions.filter(t => t.userId === currentUser.id);
-      const currentMonth = new Date().getMonth();
-      const currentYear = new Date().getFullYear();
-      
-      const monthlyIncome = userTransactions
-        .filter(t => {
-          const date = new Date(t.date);
-          return t.type === 'income' && date.getMonth() === currentMonth && date.getFullYear() === currentYear;
-        })
-        .reduce((sum, t) => sum + t.amount, 0);
-      
-      const monthlyExpense = userTransactions
-        .filter(t => {
-          const date = new Date(t.date);
-          return t.type === 'expense' && date.getMonth() === currentMonth && date.getFullYear() === currentYear;
-        })
-        .reduce((sum, t) => sum + t.amount, 0);
-      
-      document.getElementById('monthlyIncome').textContent = formatCurrency(monthlyIncome);
-      document.getElementById('monthlyExpense').textContent = formatCurrency(monthlyExpense);
-      document.getElementById('currentBalance').textContent = formatCurrency(currentUser.balance);
-    }
 
-    function formatCurrency(amount) {
-      return new Intl.NumberFormat('vi-VN', {
-        style: 'currency',
-        currency: 'VND'
-      }).format(amount);
-    }
 
-    function showAlert(elementId, message, type) {
-      const alert = document.getElementById(elementId);
-      alert.textContent = message;
-      alert.className = `alert ${type}`;
-      alert.style.display = 'block';
-      
-      setTimeout(() => {
-        alert.style.display = 'none';
-      }, 3000);
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   </script>
 </body>
 

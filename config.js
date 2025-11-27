@@ -2,10 +2,10 @@
 const CONFIG = {
     // QUAN TRỌNG: Thay đổi URL này thành URL Render thực tế của bạn
     // Ví dụ: 'https://expense-tracker-backend.onrender.com'
-    API_BASE_URL: 'https://your-render-app-url.onrender.com',
+    API_URL: 'https://your-render-app-url.onrender.com',
     
     // Để test local, sử dụng: 'http://localhost:5000'
-    // API_BASE_URL: 'http://localhost:5000',
+    // API_URL: 'http://localhost:5000',
     
     // Cấu hình khác
     APP_NAME: 'Quản Lý Chi Tiêu',
