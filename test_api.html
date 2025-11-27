@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test API</title>
+</head>
+<body>
+    <h2>Test API</h2>
+    <button onclick="testRegister()">Test Đăng ký</button>
+    <button onclick="testLogin()">Test Đăng nhập</button>
+    <button onclick="testGetUser()">Test Lấy thông tin user</button>
+    <button onclick="testGetProducts()">Test Lấy sản phẩm</button>
+    <div id="result"></div>
+    <div id="token" style="margin-top: 10px; font-size: 12px;"></div>
+
+    <script>
+    let currentToken = '';
+    const API_BASE = 'https://ltm-final-project.onrender.com/api';
+
+    async function testRegister() {
+        try {
+            const response = await fetch(`${API_BASE}/auth/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ho_ten: 'Test User',
+                    email: 'test' + Date.now() + '@example.com',
+                    mat_khau: '123456',
+                    so_du: 1000000
+                })
+            });
+            const data = await response.json();
+            document.getElementById('result').innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+        } catch (error) {
+            document.getElementById('result').innerHTML = 'Error: ' + error.message;
+        }
+    }
+
+    async function testLogin() {
+        try {
+            const response = await fetch(`${API_BASE}/auth/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: 'admin@example.com',
+                    mat_khau: 'admin123'
+                })
+            });
+            const data = await response.json();
+            if (data.token) {
+                currentToken = data.token;
+                document.getElementById('token').innerHTML = 'Token: ' + currentToken;
+            }
+            document.getElementById('result').innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+        } catch (error) {
+            document.getElementById('result').innerHTML = 'Error: ' + error.message;
+        }
+    }
+
+    async function testGetUser() {
+        if (!currentToken) {
+            document.getElementById('result').innerHTML = 'Vui lòng đăng nhập trước!';
+            return;
+        }
+        try {
+            const response = await fetch(`${API_BASE}/users/profile`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${currentToken}`
+                }
+            });
+            const data = await response.json();
+            document.getElementById('result').innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+        } catch (error) {
+            document.getElementById('result').innerHTML = 'Error: ' + error.message;
+        }
+    }
+
+    async function testGetProducts() {
+        try {
+            const response = await fetch(`${API_BASE}/products`, {
+                method: 'GET'
+            });
+            const data = await response.json();
+            document.getElementById('result').innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+        } catch (error) {
+            document.getElementById('result').innerHTML = 'Error: ' + error.message;
+        }
+    }
+    </script>
+</body>
+</html>
