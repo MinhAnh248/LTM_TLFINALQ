@@ -2,7 +2,7 @@
 window.CONFIG = {
     // QUAN TRỌNG: Thay đổi URL này thành URL Render thực tế của bạn
     // Ví dụ: 'https://expense-tracker-backend.onrender.com'
-    API_URL: 'https://ltm-tlfinalq.onrender.com/api',
+    API_URL: 'https://ltm-tlfinalq.onrender.com',
     
     // Để test local, sử dụng: 'http://localhost:5000'
     // API_URL: 'http://localhost:5000',
