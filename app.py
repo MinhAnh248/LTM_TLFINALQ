@@ -81,6 +81,22 @@ class VayNo(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
+# Home Route
+@app.route('/', methods=['GET'])
+def home():
+    return jsonify({
+        'message': 'LTM Final Project API',
+        'status': 'running',
+        'endpoints': {
+            'auth': '/api/auth/login, /api/auth/register',
+            'transactions': '/api/giao-dich',
+            'categories': '/api/danh-muc',
+            'profile': '/api/user/profile',
+            'statistics': '/api/thong-ke',
+            'ai': '/api/ai/prediction'
+        }
+    }), 200
+
 # Auth Routes
 @app.route('/api/auth/register', methods=['POST'])
 def register():
